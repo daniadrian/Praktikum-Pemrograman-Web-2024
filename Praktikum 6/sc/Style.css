@@ -1,0 +1,74 @@
+body {
+    background-image: url('store.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Untuk mencegah gambar latar belakang bergeser saat scrolling */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+
+h2 {
+    text-align: center;
+    margin-top: 50px;
+    color: rgb(250, 253, 252); 
+    font-size: 50px; 
+    font-weight: bold; 
+}
+
+form {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+p {
+    margin: 20px 0;
+    font-size: 24px; /* Mengatur ukuran font menjadi 24px */
+    color: white; /* Mengubah warna teks menjadi hitam */
+    line-height: 1.5;
+    text-align: center;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+input[type="submit"] {
+    display: block;
+    width: 200px; /* Mengatur lebar tombol */
+    margin: 10px auto; /* Mengatur margin secara otomatis atas dan bawah dan secara otomatis sisi kiri dan kanan */
+    padding: 10px;
+    background-color: #4c74af; /* Warna latar belakang tombol */
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center; /* Mengatur teks tombol ke tengah */
+    text-decoration: none; /* Menghilangkan dekorasi teks */
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #4c74af;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
