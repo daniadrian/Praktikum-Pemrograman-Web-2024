@@ -1,0 +1,9 @@
+Jangan lupa untuk mengubah koneksiMVC.php pada :
+$mysqli = mysqli_connect('localhost', 'root', '02030507', 'praktikum7');
+
+Dan admin.php pada :
+$conn = new mysqli("localhost", "root", "02030507", "praktikum7");
+
+Sesuai phpMyAdmin masing masing
+$mysqli = mysqli_connect('localhost', 'root', 'PASSWORD', 'NAMA DATABASE');
+$conn = new mysqli("localhost", "root", "PASSWORD", "NAMA DATABASE");
