@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Students App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Students App</h1>
+        <button id="addStudentBtn" onclick="openForm()">Add Mahasiswa</button>
+
+        <table id="studentsTable">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Age</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Students will be dynamically added here -->
+            </tbody>
+        </table>
+    </div>
+
+    <div class="form-popup" id="studentForm">
+        <form id="form" class="form-container" onsubmit="saveStudent(event)">
+            <h2>Add/Edit Student</h2>
+
+            <label for="firstName"><b>First Name</b></label>
+            <input type="text" id="firstName" placeholder="Enter First Name" required>
+
+            <label for="lastName"><b>Last Name</b></label>
+            <input type="text" id="lastName" placeholder="Enter Last Name" required>
+
+            <label for="age"><b>Age</b></label>
+            <input type="number" id="age" placeholder="Enter Age" required>
+
+            <input type="hidden" id="studentIndex">
+
+            <button type="submit" class="btn">Save</button>
+            <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

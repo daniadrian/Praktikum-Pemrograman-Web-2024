@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Konversi Suhu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url('winter.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        input,
+        select,
+        button {
+            margin: 10px 0;
+            padding: 10px;
+            width: 80%;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            width: auto;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        p#result {
+            font-size: 18px;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        /* Tombol navigasi */
+        .navigation {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            text-align: left;
+            font-weight: bold;
+            font-size: 20px;
+            background-color: rgba(255, 255, 255, 0.7);
+            /* Latar belakang putih agak transparan */
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .navigation p {
+            margin: 0;
+        }
+
+        .navigation button {
+            display: block;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Tombol navigasi -->
+    <div class="navigation">
+        <p>Navigasi Halaman</p>
+        <button onclick="window.location.href='http://127.0.0.1:5500/matrix_operations.html'">Operasi Matriks</button>
+        <button onclick="window.location.href='http://127.0.0.1:5500/kalkulator.html'">Calculator Scientific</button>
+    </div>
+
+    <div class="container">
+        <h2>Konversi Suhu</h2>
+        <input id="inputTemp" type="number" placeholder="Masukkan suhu">
+        <select id="inputUnit">
+            <option value="C">Celsius</option>
+            <option value="F">Fahrenheit</option>
+            <option value="R">Reamur</option>
+        </select>
+        <button onclick="convertTemperature()">Konversi</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        function convertTemperature() {
+            let temp = parseFloat(document.getElementById('inputTemp').value);
+            let unit = document.getElementById('inputUnit').value;
+            let result = '';
+
+            if (unit === 'C') {
+                result = `${temp}°C = ${(temp * 9 / 5 + 32).toFixed(2)}°F, ${(temp * 4 / 5).toFixed(2)}°R`;
+            } else if (unit === 'F') {
+                result = `${temp}°F = ${((temp - 32) * 5 / 9).toFixed(2)}°C, ${((temp - 32) * 4 / 9).toFixed(2)}°R`;
+            } else if (unit === 'R') {
+                result = `${temp}°R = ${(temp * 5 / 4).toFixed(2)}°C, ${(temp * 9 / 4 + 32).toFixed(2)}°F`;
+            }
+
+            document.getElementById('result').innerText = result;
+        }
+    </script>
+</body>
+
+</html>

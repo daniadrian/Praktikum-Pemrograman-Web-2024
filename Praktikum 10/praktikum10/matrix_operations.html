@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Operasi Matriks</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-image: url('matriksbg.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .input-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .input-matrix {
+            width: 45%;
+        }
+
+        input {
+            margin-bottom: 5px;
+            padding: 5px;
+            width: 50px;
+            text-align: center;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #output-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        #output {
+            margin-top: 10px;
+        }
+
+        #output div {
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .warning-box {
+            background-color: #ffcccc;
+            color: #cc0000;
+            border: 1px solid #cc0000;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        /* Tombol navigasi */
+        .navigation {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            text-align: left;
+            font-weight: bold;
+            font-size: 20px;
+            background-color: rgba(255, 255, 255, 0.7);
+            /* Latar belakang putih agak transparan */
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .navigation p {
+            margin: 0;
+        }
+
+        .navigation button {
+            display: block;
+            margin-top: 10px;
+        }
+    </style>
+    <script>
+        async function matrixToString(matrix) {
+            return matrix.array().then(array => array.map(row => row.join(', ')).join('<br>'));
+        }
+
+        function displayResult(elementId, resultString) {
+            const outputDiv = document.getElementById(elementId);
+            const resultDiv = document.createElement('div');
+            resultDiv.innerHTML = resultString;
+            outputDiv.appendChild(resultDiv);
+        }
+
+        function getMatrixValues(idPrefix) {
+            const values = [
+                [parseFloat(document.getElementById(`${idPrefix}00`).value || 0),
+                parseFloat(document.getElementById(`${idPrefix}01`).value || 0)],
+                [parseFloat(document.getElementById(`${idPrefix}10`).value || 0),
+                parseFloat(document.getElementById(`${idPrefix}11`).value || 0)]
+            ];
+            return tf.tensor2d(values);
+        }
+
+        function calculateInverse(matrix) {
+            const array = matrix.arraySync();
+            const determinant = array[0][0] * array[1][1] - array[0][1] * array[1][0];
+            if (determinant === 0) {
+                throw new Error("Matrix is singular and cannot be inverted");
+            }
+            const inverseArray = [
+                [array[1][1] / determinant, -array[0][1] / determinant],
+                [-array[1][0] / determinant, array[0][0] / determinant]
+            ];
+            return tf.tensor2d(inverseArray);
+        }
+
+        async function matrixOperations() {
+            // Clear previous results and warnings
+            document.getElementById('output').innerHTML = '';
+            document.getElementById
+                ('warning').innerHTML = '';
+            // Get input values
+            const a = getMatrixValues('a');
+            const b = getMatrixValues('b');
+
+            // Check if any input is empty
+            let anyEmpty = false;
+            document.querySelectorAll('input').forEach(input => {
+                if (input.value === '') {
+                    anyEmpty = true;
+                    return;
+                }
+            });
+
+            // Show warning if any input is empty
+            if (anyEmpty) {
+                document.getElementById('warning').innerHTML = '<div class="warning-box">Mohon isi semua kolom input</div>';
+                return;
+            }
+
+            // Transpose
+            const aTranspose = a.transpose();
+            const aTransposeStr = await matrixToString(aTranspose);
+            displayResult('output', `<b>Transpose dari matriks
+            A:</b><br>${aTransposeStr}`);
+
+            // Penjumlahan
+            const sum = a.add(b);
+            const sumStr = await matrixToString(sum);
+            displayResult('output', `<b>Penjumlahan dari matriks A dan B:</b><br>${sumStr}`);
+
+            // Perkalian
+            const product = a.matMul(b);
+            const productStr = await matrixToString(product);
+            displayResult('output', `<b>Perkalian dari matriks A dan B:</b><br>${productStr}`);
+
+            // Invers
+            try {
+                const inverseA = calculateInverse(a);
+                const inverseAStr = await matrixToString(inverseA);
+                displayResult('output', `<b>Invers dari matriks A:</b><br>${inverseAStr}`);
+            } catch (error) {
+                displayResult('output', `<b>Invers dari matriks A:</b><br>Error: ${error.message}`);
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <!-- Tombol navigasi -->
+    <div class="navigation">
+        <p style="background-color: rgba(255, 255, 255, 0.7); padding: 5px; border-radius: 3px;">Navigasi Halaman</p>
+        <button onclick="window.location.href='http://127.0.0.1:5500/konversisuhu.html'">Konversi Suhu</button>
+        <button onclick="window.location.href='http://127.0.0.1:5500/kalkulator.html'">Calculator Scientific</button>
+    </div>
+    <div class="container">
+        <h1>Operasi Matriks</h1>
+        <div class="input-container">
+            <div class="input-matrix">
+                <h2>Matrix A</h2>
+                <input type="number" id="a00" placeholder="">
+                <input type="number" id="a01" placeholder="">
+                <br>
+                <input type="number" id="a10" placeholder="">
+                <input type="number" id="a11" placeholder="">
+            </div>
+            <div class="input-matrix">
+                <h2>Matrix B</h2>
+                <input type="number" id="b00" placeholder="">
+                <input type="number" id="b01" placeholder="">
+                <br>
+                <input type="number" id="b10" placeholder="">
+                <input type="number" id="b11" placeholder="">
+            </div>
+        </div>
+        <button onclick="matrixOperations()">Hitung</button>
+        <div id="warning"></div>
+    </div>
+
+    <div class="container" id="output-container">
+        <h2>Hasil</h2>
+        <div id="output"></div>
+    </div>
+</body>
+
+</html>

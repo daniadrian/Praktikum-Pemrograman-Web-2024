@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            max-width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Form Validation</h1>
+        <form id="myForm">
+            <input type="text" id="name" placeholder="Nama">
+            <div class="error-message" id="nameError"></div>
+            <input type="email" id="email" placeholder="Email">
+            <div class="error-message" id="emailError"></div>
+            <textarea id="message" placeholder="Pesan"></textarea>
+            <div class="error-message" id="messageError"></div>
+            <button type="button" onclick="validateForm()">Kirim</button>
+        </form>
+    </div>
+
+    <script>
+        function validateForm() {
+            var name = document.getElementById("name").value;
+            var email = document.getElementById("email").value;
+            var message = document.getElementById("message").value;
+            var nameError = document.getElementById("nameError");
+            var emailError = document.getElementById("emailError");
+            var messageError = document.getElementById("messageError");
+            var isValid = true;
+
+            // Validasi nama
+            if (name === "") {
+                nameError.innerHTML = "Nama harus diisi";
+                isValid = false;
+            } else {
+                nameError.innerHTML = "";
+            }
+
+            // Validasi email
+            if (email === "") {
+                emailError.innerHTML = "Email harus diisi";
+                isValid = false;
+            } else {
+                emailError.innerHTML = "";
+            }
+
+            // Validasi pesan
+            if (message === "") {
+                messageError.innerHTML = "Pesan harus diisi";
+                isValid = false;
+            } else {
+                messageError.innerHTML = "";
+            }
+
+            // Jika semua valid, kirim formulir
+            if (isValid) {
+                alert("Formulir berhasil dikirim!");
+                // Proses pengiriman formulir
+            }
+        }
+    </script>
+</body>
+
+</html>
